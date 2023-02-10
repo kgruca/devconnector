@@ -3,6 +3,7 @@ const router = express.Router();
 const {check, validationResult } = require('express-validator');
 const auth = require('../../middleware/auth');
 const User = require('../../models/User');
+const Post = require('../../models/Post');
 
 // @route   POST api/posts
 // @desc    Create a post
@@ -25,12 +26,12 @@ router.post('/',
         try {
             const user = await User.findById(req.user.id).select('-password');
 
-            const newPost = {
+            const newPost = new Post({
                 text: req.body.text,
                 name: user.name,
                 avatar: user.avatar,
                 user: req.user.id
-            }; 
+            }); 
 
             const post = await newPost.save();
 
@@ -41,5 +42,18 @@ router.post('/',
         }
     }
 );
+
+// @route   GET api/posts
+// @desc    Get all posts
+// @access  Private
+router.get('/', auth, async (req, res) => {
+    try {
+        const posts = await Post.find().sort({ date: -1 });
+        res.json(posts);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
 
 module.exports = router;
