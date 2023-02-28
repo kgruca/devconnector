@@ -1,7 +1,11 @@
-import React from 'react'
+import React from 'react';
 
 const Login = () => {
-  return <div>Login</div>
+     return (
+        <section className='container'>
+            <div>Login</div>
+        </section>
+    )
 };
 
 export default Login;

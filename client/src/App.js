@@ -8,16 +8,12 @@ import './App.css';
 
 const App = () => (
     <Router>
-        <Fragment>
-            <Navbar />
-            <Route exact path="/" element={<Landing/>} />
-            <section className='container'>
-                <Routes>
-                    <Route exact path="/register" element={<Register/>} />
-                    <Route exact path="/login" element={<Login/>} />
-                </Routes>
-            </section>
-        </Fragment>
+        <Navbar />
+        <Routes>
+            <Route exact path="/" element={<Landing />} />
+            <Route exact path="/register" element={<Register />} />
+            <Route exact path="/login" element={<Login />} />
+        </Routes>
     </Router>
 );
 
